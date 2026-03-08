@@ -25,10 +25,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <header className="flex justify-between items-center px-4 py-4 border-b dark:border-gray-700">
-          <span className="font-bold text-lg">My Blog</span>
-          <DarkModeToggle />
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+      >
+        <header className="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-10">
+          <div className="max-w-2xl mx-auto px-4 py-4 flex justify-between items-center">
+            <span className="font-bold text-xl tracking-tight">✍️ My Blog</span>
+            <DarkModeToggle />
+          </div>
         </header>
         {children}
       </body>
