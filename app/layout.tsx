@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import DarkModeToggle from "./components/DarkModeToggle";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,9 +31,12 @@ export default function RootLayout({
       >
         <header className="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-10">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <span className="font-bold text-lg sm:text-xl tracking-tight">
+            <Link
+              href="/"
+              className="font-bold text-lg sm:text-xl tracking-tight"
+            >
               ✍️ My Blog
-            </span>
+            </Link>
             <DarkModeToggle />
           </div>
         </header>
