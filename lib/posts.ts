@@ -12,6 +12,7 @@ export type Post = {
   date: string;
   content: string;
   hero?: boolean;
+  tags?: string[];
 };
 
 export async function getAllPosts(): Promise<Post[]> {
@@ -28,6 +29,7 @@ export async function getAllPosts(): Promise<Post[]> {
         title: data.title,
         date: data.date,
         hero: data.hero ?? false,
+        tags: data.tags ?? [],
         content: processedContent.toString(),
       };
     }),
@@ -46,6 +48,13 @@ export async function getPostById(id: string): Promise<Post | undefined> {
     title: data.title,
     date: data.date,
     hero: data.hero ?? false,
+    tags: data.tags ?? [],
     content: processedContent.toString(),
   };
+}
+
+export async function getAllTags(): Promise<string[]> {
+  const posts = await getAllPosts();
+  const tags = posts.flatMap((post) => post.tags ?? []);
+  return [...new Set(tags)];
 }

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getAllPosts } from "@/lib/posts";
 import AdBanner from "./components/AdBanner";
+import TagList from "./components/TagList";
 
 export default async function Home() {
   const allPosts = await getAllPosts();
@@ -11,17 +12,33 @@ export default async function Home() {
     <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
       {/* ヒーロー記事 */}
       {heroPost && (
-        <Link href={`/posts/${heroPost.id}`}>
-          <div className="bg-blue-600 hover:bg-blue-700 transition text-white rounded-xl p-8 sm:p-10 mb-8 shadow-md">
-            <p className="text-xs sm:text-sm text-blue-200 mb-2">
-              {heroPost.date}
-            </p>
-            <h2 className="text-2xl sm:text-3xl font-bold mb-3">
+        <div className="bg-blue-600 text-white rounded-xl p-8 sm:p-10 mb-8 shadow-md">
+          <p className="text-xs sm:text-sm text-blue-200 mb-2">
+            {heroPost.date}
+          </p>
+          <Link href={`/posts/${heroPost.id}`}>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3 hover:underline">
               {heroPost.title}
             </h2>
-            <span className="text-sm text-blue-200">続きを読む →</span>
+          </Link>
+          <div className="flex flex-wrap gap-2 mb-3">
+            {heroPost.tags?.map((tag) => (
+              <Link
+                key={tag}
+                href={`/tags/${tag}`}
+                className="bg-blue-500 hover:bg-blue-400 text-white text-xs px-3 py-1 rounded-full transition"
+              >
+                #{tag}
+              </Link>
+            ))}
           </div>
-        </Link>
+          <Link
+            href={`/posts/${heroPost.id}`}
+            className="text-sm text-blue-200 hover:underline"
+          >
+            続きを読む →
+          </Link>
+        </div>
       )}
 
       {/* ダミー広告 */}
@@ -37,19 +54,20 @@ export default async function Home() {
       <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         {posts.map((post) => (
           <li key={post.id}>
-            <Link href={`/posts/${post.id}`}>
-              <div className="bg-white dark:bg-gray-800 rounded-xl p-5 sm:p-6 shadow-sm hover:shadow-md transition border border-gray-100 dark:border-gray-700 h-full">
-                <p className="text-xs sm:text-sm text-blue-500 mb-2">
-                  {post.date}
-                </p>
-                <h2 className="text-lg sm:text-xl font-bold mb-3 hover:text-blue-500 transition">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-5 sm:p-6 shadow-sm hover:shadow-md transition border border-gray-100 dark:border-gray-700 h-full">
+              <p className="text-xs sm:text-sm text-blue-500 mb-2">
+                {post.date}
+              </p>
+              <h2 className="text-lg sm:text-xl font-bold mb-3">
+                <Link
+                  href={`/posts/${post.id}`}
+                  className="hover:text-blue-500 transition"
+                >
                   {post.title}
-                </h2>
-                <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-                  続きを読む →
-                </span>
-              </div>
-            </Link>
+                </Link>
+              </h2>
+              <TagList tags={post.tags ?? []} />
+            </div>
           </li>
         ))}
       </ul>

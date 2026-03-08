@@ -30,9 +30,20 @@ export default async function PostPage({ params }: Props) {
       </Link>
       <article className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 sm:p-8 lg:p-10">
         <p className="text-xs sm:text-sm text-blue-500 mb-2">{post.date}</p>
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
           {post.title}
         </h1>
+        <div className="mb-6 flex flex-wrap gap-2">
+          {post.tags?.map((tag) => (
+            <Link
+              key={tag}
+              href={`/tags/${tag}`}
+              className="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 text-xs px-3 py-1 rounded-full hover:bg-blue-200 transition"
+            >
+              #{tag}
+            </Link>
+          ))}
+        </div>
         <div
           className="prose prose-gray dark:prose-invert max-w-none
             prose-h2:text-xl sm:prose-h2:text-2xl prose-h2:font-bold prose-h2:mt-6 prose-h2:mb-4
