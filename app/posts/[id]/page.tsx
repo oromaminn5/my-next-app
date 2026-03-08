@@ -10,20 +10,37 @@ export default async function PostPage({ params }: Props) {
   const post = await getPostById(id);
 
   if (!post) {
-    return <p>記事が見つかりませんでした。</p>;
+    return (
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <p className="text-gray-500">記事が見つかりませんでした。</p>
+        <Link href="/" className="text-blue-500 hover:underline mt-4 block">
+          ← トップに戻る
+        </Link>
+      </main>
+    );
   }
 
   return (
-    <main className="max-w-2xl mx-auto px-4 py-12">
-      <Link href="/" className="text-blue-500 hover:underline mb-8 block">
+    <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <Link
+        href="/"
+        className="text-blue-500 hover:underline mb-6 sm:mb-8 block text-sm"
+      >
         ← トップに戻る
       </Link>
-      <p className="text-sm text-gray-500 mb-2">{post.date}</p>
-      <h1 className="text-4xl font-bold mb-6">{post.title}</h1>
-      <div
-        className="prose dark:prose-invert"
-        dangerouslySetInnerHTML={{ __html: post.content }}
-      />
+      <article className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 sm:p-8 lg:p-10">
+        <p className="text-xs sm:text-sm text-blue-500 mb-2">{post.date}</p>
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8">
+          {post.title}
+        </h1>
+        <div
+          className="prose prose-gray dark:prose-invert max-w-none
+            prose-h2:text-xl sm:prose-h2:text-2xl prose-h2:font-bold prose-h2:mt-6 prose-h2:mb-4
+            prose-p:leading-relaxed prose-p:text-gray-700 dark:prose-p:text-gray-300
+            prose-p:text-sm sm:prose-p:text-base"
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
+      </article>
     </main>
   );
 }

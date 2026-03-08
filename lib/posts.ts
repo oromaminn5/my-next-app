@@ -11,6 +11,7 @@ export type Post = {
   title: string;
   date: string;
   content: string;
+  hero?: boolean;
 };
 
 export async function getAllPosts(): Promise<Post[]> {
@@ -26,6 +27,7 @@ export async function getAllPosts(): Promise<Post[]> {
         id,
         title: data.title,
         date: data.date,
+        hero: data.hero ?? false,
         content: processedContent.toString(),
       };
     }),
@@ -43,6 +45,7 @@ export async function getPostById(id: string): Promise<Post | undefined> {
     id,
     title: data.title,
     date: data.date,
+    hero: data.hero ?? false,
     content: processedContent.toString(),
   };
 }
