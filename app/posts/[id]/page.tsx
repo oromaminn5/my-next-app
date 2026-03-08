@@ -1,4 +1,4 @@
-import { posts } from "@/lib/posts";
+import { getPostById } from "@/lib/posts";
 import Link from "next/link";
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
 
 export default async function PostPage({ params }: Props) {
   const { id } = await params;
-  const post = posts.find((p) => p.id === Number(id));
+  const post = await getPostById(id);
 
   if (!post) {
     return <p>記事が見つかりませんでした。</p>;
@@ -20,7 +20,10 @@ export default async function PostPage({ params }: Props) {
       </Link>
       <p className="text-sm text-gray-500 mb-2">{post.date}</p>
       <h1 className="text-4xl font-bold mb-6">{post.title}</h1>
-      <p className="text-gray-700 leading-relaxed">{post.content}</p>
+      <div
+        className="prose dark:prose-invert"
+        dangerouslySetInnerHTML={{ __html: post.content }}
+      />
     </main>
   );
 }

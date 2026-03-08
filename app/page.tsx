@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { posts } from "@/lib/posts";
+import { getAllPosts } from "@/lib/posts";
 
-export default function Home() {
+export default async function Home() {
+  const posts = await getAllPosts();
+
   return (
     <main className="max-w-2xl mx-auto px-4 py-12">
       <h1 className="text-4xl font-bold mb-8">My Blog</h1>
@@ -17,7 +19,6 @@ export default function Home() {
                 {post.title}
               </Link>
             </h2>
-            <p className="text-gray-600">{post.content.slice(0, 50)}...</p>
           </li>
         ))}
       </ul>

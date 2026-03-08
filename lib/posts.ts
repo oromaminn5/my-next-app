@@ -1,23 +1,48 @@
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import { remark } from "remark";
+import html from "remark-html";
+
+const postsDirectory = path.join(process.cwd(), "posts");
+
 export type Post = {
-  id: number;
+  id: string;
   title: string;
   date: string;
   content: string;
 };
 
-export const posts: Post[] = [
-  {
-    id: 1,
-    title: "はじめての投稿",
-    date: "2026年3月8日",
-    content:
-      "Dockerを使ってNext.jsの開発環境を構築しました。コンテナを使うことで、環境構築がとても楽になりました。",
-  },
-  {
-    id: 2,
-    title: "Tailwind CSSを使ってみた",
-    date: "2026年3月7日",
-    content:
-      "Tailwind CSSでスタイリングがとても楽になりました。クラス名を書くだけでデザインが整うのが気に入っています。",
-  },
-];
+export async function getAllPosts(): Promise<Post[]> {
+  const fileNames = fs.readdirSync(postsDirectory);
+  const posts = await Promise.all(
+    fileNames.map(async (fileName) => {
+      const id = fileName.replace(/\.md$/, "");
+      const fullPath = path.join(postsDirectory, fileName);
+      const fileContents = fs.readFileSync(fullPath, "utf8");
+      const { data, content } = matter(fileContents);
+      const processedContent = await remark().use(html).process(content);
+      return {
+        id,
+        title: data.title,
+        date: data.date,
+        content: processedContent.toString(),
+      };
+    }),
+  );
+  return posts;
+}
+
+export async function getPostById(id: string): Promise<Post | undefined> {
+  const fullPath = path.join(postsDirectory, `${id}.md`);
+  if (!fs.existsSync(fullPath)) return undefined;
+  const fileContents = fs.readFileSync(fullPath, "utf8");
+  const { data, content } = matter(fileContents);
+  const processedContent = await remark().use(html).process(content);
+  return {
+    id,
+    title: data.title,
+    date: data.date,
+    content: processedContent.toString(),
+  };
+}
