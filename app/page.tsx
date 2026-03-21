@@ -56,11 +56,9 @@ export default async function Home({ searchParams }: Props) {
       )}
 
       {/* ダミー広告 */}
-      {currentPage === 1 && (
-        <div className="mb-8">
-          <AdBanner />
-        </div>
-      )}
+      <div className="mb-8">
+        <AdBanner />
+      </div>
 
       {/* 記事一覧 */}
       <h1 className="text-2xl sm:text-3xl font-bold mb-2">最新の記事</h1>
