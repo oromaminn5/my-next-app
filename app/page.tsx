@@ -1,3 +1,4 @@
+export const revalidate = 86400; // 1日（秒）
 import Link from "next/link";
 import { getAllPosts } from "@/lib/posts";
 import AdBanner from "./components/AdBanner";
@@ -30,7 +31,7 @@ export default async function Home({ searchParams }: Props) {
           <p className="text-xs sm:text-sm text-green-200 mb-2">
             {heroPost.date}
           </p>
-          <Link href={`/posts/${heroPost.id}`}>
+          <Link href={`/posts/${heroPost.slug}`}>
             <h2 className="text-2xl sm:text-3xl font-bold mb-3 hover:underline">
               {heroPost.title}
             </h2>
@@ -47,7 +48,7 @@ export default async function Home({ searchParams }: Props) {
             ))}
           </div>
           <Link
-            href={`/posts/${heroPost.id}`}
+            href={`/posts/${heroPost.slug}`}
             className="text-sm text-green-200 hover:underline"
           >
             続きを読む →
@@ -74,7 +75,7 @@ export default async function Home({ searchParams }: Props) {
               </p>
               <h2 className="text-lg sm:text-xl font-bold mb-3">
                 <Link
-                  href={`/posts/${post.id}`}
+                  href={`/posts/${post.slug}`}
                   className="hover:text-green-600 transition"
                 >
                   {post.title}

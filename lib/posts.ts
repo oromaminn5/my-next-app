@@ -3,11 +3,13 @@ import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
+import { generateSlug } from "./slug";
 
 const postsDirectory = path.join(process.cwd(), "posts");
 
 export type Post = {
   id: string;
+  slug: string;
   title: string;
   date: string;
   content: string;
@@ -26,6 +28,7 @@ export async function getAllPosts(): Promise<Post[]> {
       const processedContent = await remark().use(html).process(content);
       return {
         id,
+        slug: data.slug ?? generateSlug(data.title),
         title: data.title,
         date: data.date,
         hero: data.hero ?? false,
@@ -45,12 +48,18 @@ export async function getPostById(id: string): Promise<Post | undefined> {
   const processedContent = await remark().use(html).process(content);
   return {
     id,
+    slug: data.slug ?? generateSlug(data.title),
     title: data.title,
     date: data.date,
     hero: data.hero ?? false,
     tags: data.tags ?? [],
     content: processedContent.toString(),
   };
+}
+
+export async function getPostBySlug(slug: string): Promise<Post | undefined> {
+  const posts = await getAllPosts();
+  return posts.find((post) => post.slug === slug);
 }
 
 export async function getAllTags(): Promise<string[]> {

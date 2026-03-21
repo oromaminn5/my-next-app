@@ -1,3 +1,4 @@
+export const revalidate = 86400; // 1日（秒）
 import { getAllPosts } from "@/lib/posts";
 import Link from "next/link";
 
