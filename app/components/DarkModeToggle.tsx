@@ -17,9 +17,12 @@ export default function DarkModeToggle() {
   return (
     <button
       onClick={() => setIsDark(!isDark)}
-      className="px-4 py-2 rounded-lg border hover:bg-gray-100 dark:hover:bg-gray-700 dark:border-gray-600 dark:text-white transition"
+      className="flex items-center gap-1 px-3 py-2 rounded-lg border border-green-600 hover:bg-green-700 text-white transition"
     >
-      {isDark ? "☀️ ライト" : "🌙 ダーク"}
+      <span className="material-icons text-sm">
+        {isDark ? "light_mode" : "dark_mode"}
+      </span>
+      <span className="text-sm">{isDark ? "ライト" : "ダーク"}</span>
     </button>
   );
 }

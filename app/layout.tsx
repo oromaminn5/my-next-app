@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "My Blog",
-  description: "My Blog",
+  title: "競馬ブログ",
+  description: "競馬の予想と結果を記録するブログ",
 };
 
 export default function RootLayout({
@@ -26,16 +26,23 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
-        <header className="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-10">
+        <header className="bg-green-800 dark:bg-green-900 shadow-sm sticky top-0 z-10">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             <Link
               href="/"
-              className="font-bold text-lg sm:text-xl tracking-tight"
+              className="font-bold text-lg sm:text-xl tracking-tight text-white hover:text-green-200 transition flex items-center gap-2"
             >
-              ✍️ My Blog
+              <span className="material-icons">sports</span>
+              競馬ブログ
             </Link>
             <DarkModeToggle />
           </div>

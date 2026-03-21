@@ -11,7 +11,7 @@ export default function TagList({ tags }: Props) {
         <Link
           key={tag}
           href={`/tags/${tag}`}
-          className="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 text-xs px-3 py-1 rounded-full hover:bg-blue-200 dark:hover:bg-blue-800 transition"
+          className="bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 text-xs px-3 py-1 rounded-full hover:bg-green-200 dark:hover:bg-green-800 transition"
         >
           #{tag}
         </Link>
